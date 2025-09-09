@@ -3,17 +3,56 @@ public class StringWeight {
     public static int stringWeight(int[] input1, String input2){
         input2 = input2.toLowerCase();
         int product = 1;
+        boolean hasValidWord = false;
 
         for(int i=0; i<input2.length(); i++){
-            int wordSum = 0;
-            while(i<input2.length() && input2.charAt(i) != ' '){
-                char ch = input2.charAt(i);
-                wordSum += input1[ch - 'a'] ;
+            while(i<input2.length() && input2.charAt(i) == ' '){
                 i++ ;
             }
-            product *= wordSum ;
+
+            if(i >= input2.length()){
+                break ;
+            }
+
+            boolean hasValidChar = false;
+            int wordSum = 0;
+
+            int firstVal = 0;
+            int lastVal = 0;
+            char firstChar = 0;
+            char lastChar = 0;
+            
+            while(i<input2.length() && input2.charAt(i) != ' '){
+                char ch = input2.charAt(i);
+                if(ch >= 'a' && ch <= 'z'){
+                    int val = input1[ch - 'a'] ;
+                    wordSum += val;
+
+                    if(!hasValidChar){
+                        firstVal = val;
+                        firstChar = ch;
+                    }
+                    lastVal = val ;
+                    lastChar = ch ;
+                    hasValidChar = true;
+                }
+                i++ ;
+            }
+
+            if(hasValidChar){
+                if(firstVal < 0){
+                    wordSum += (firstChar - 'a' + 1) ;
+                }
+                if(lastVal < 0){
+                    wordSum += (lastChar - 'a' + 1) ;
+                }
+
+                product *= wordSum ;
+                hasValidWord = true;
+            }
+            
         }
-        return product;
+        return hasValidWord ? product : 0 ;
     }
     public static void main(String args[]){
         String str = "Wipro Limited";
