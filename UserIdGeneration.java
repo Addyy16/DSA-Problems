@@ -1,4 +1,122 @@
+import java.util.* ;
+public class UserIdGeneration {
+    public static String userIdGeneration(String input1, String input2, int input3, int input4){
+        String smallerName ;
+        String longerName;
 
+        if(input1.length() > input2.length()){
+            smallerName = input2;
+            longerName = input1;
+        }else if(input1.length() < input2.length()){
+            smallerName = input1;
+            longerName = input2;
+        }else{
+            if(input1.compareTo(input2) < 0){
+                smallerName = input1;
+                longerName = input2;
+            } else if(input1.compareTo(input2) > 0){
+                smallerName = input2;
+                longerName = input1;
+            } else{
+                smallerName = input2;
+                longerName = input1;
+            }
+        }
+
+      //1st Approach 
+        StringBuilder str = new StringBuilder();
+
+        String pin = String.valueOf(input3);
+
+        char lastChar = smallerName.charAt(smallerName.length()-1);
+        char leftDigit = pin.charAt(input4 - 1);
+        char rightDigit = pin.charAt(pin.length() - input4);
+
+        str.append(lastChar);
+        str.append(longerName);
+        str.append(leftDigit);
+        str.append(rightDigit);
+
+        StringBuilder ans = new StringBuilder();
+        
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (Character.isUpperCase(ch)) {
+                ans.append(Character.toLowerCase(ch));
+            } else if (Character.isLowerCase(ch)) {
+                ans.append(Character.toUpperCase(ch));
+            } else {
+                ans.append(ch); // keep digits as is
+            }
+        }
+
+// 2nd Approach 
+      
+      // // Appending last letter of smallerName to string
+        // int idx = smallerName.length() - 1 ;
+        // char ch = smallerName.charAt(idx);
+        // if(Character.isUpperCase(ch)){
+        //     str.append(Character.toLowerCase(ch));
+        // }else{
+        //     str.append(Character.toUpperCase(ch));
+        // }
+
+        // // Appending longerName to string
+        // for(int i=0; i<longerName.length(); i++){
+        //     ch = longerName.charAt(i);
+        //     if(Character.isUpperCase(ch)){
+        //         str.append(Character.toLowerCase(ch));
+        //     }else{
+        //         str.append(Character.toUpperCase(ch));
+        //     }
+        // }
+
+        // StringBuilder p = new StringBuilder();
+        // p.append(input3);
+        // StringBuilder revPin = p.reverse();
+        // int n = 0;
+
+
+        // int pin = Integer.parseInt(revPin.toString());
+
+        // // Nth digit from left to right
+        // while(pin > 0){
+        //     n++ ;
+        //     int rem = pin%10 ;
+        //     if(n == input4){
+        //         str.append(rem);
+        //         break;
+        //     }
+        //     pin = pin/10 ;
+        // }
+
+        // // Nth digit from right to left
+        // n = 0 ;
+        // while(input3 >0){
+        //     n++ ;
+        //     int rem = input3%10 ;
+        //     if(n == input4){
+        //         str.append(rem);
+        //         break;
+        //     }
+        //     input3 = input3/10 ;
+        // }
+        // return str.toString();
+
+        return ans.toString();
+
+        
+    }
+
+    public static void main(String args[]){
+        String firstName = "Kumud";
+        String lastName = "Kumar";
+        int pin = 561327;
+        int N = 2;
+        System.out.println(userIdGeneration(firstName, lastName, pin, N));
+    }
+}
 
 
 
